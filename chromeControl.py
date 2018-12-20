@@ -1,12 +1,16 @@
-import time, serial, os, pyautogui, glob, alsaaudio
+import time, serial, os, pyautogui, glob, alsaaudio, sys
 
 # Find usb device
 print ("Check for the Arduino")
 
 #ports = glob.glob('/dev/tty[A-Za-z]*')
 ports = glob.glob('/dev/ttyUSB*')
-print (ports[0])
 
+try: 
+    print (ports[0])
+except:
+    print ("No Arduino found, check connection")
+    sys.exit()
 ser = serial.Serial(
 	port=ports[0],
 	baudrate=9600,

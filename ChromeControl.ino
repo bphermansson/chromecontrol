@@ -89,6 +89,10 @@ void loop() {
 // Check for serial data
   if (stringComplete) {
     //Serial.println(inputString);
+    inputString.trim();
+    if (inputString == "V") {
+      Serial.println("Version 0.1");
+    }
     // clear the string:
     inputString = "";
     stringComplete = false;
