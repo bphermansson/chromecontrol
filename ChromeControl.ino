@@ -45,7 +45,7 @@ String inputString = "";
 boolean stringComplete = false; 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   
   pinMode(gbuttonPin, INPUT);
   pinMode(bbuttonPin, INPUT);
@@ -62,8 +62,8 @@ void setup() {
 }
 
 void loop() {
-// Timer
-    if (sinceMovement > 60000) // "sinceMovement" auto-increases
+// Timer, time in milliseconds
+    if (sinceMovement > 1800000) // "sinceMovement" auto-increases, 1800000 = 30 minutes
     {      
         sinceMovement = 0;
         t=0;
@@ -81,9 +81,9 @@ void loop() {
         sinceTest1 = sinceTest1 - 1000;
         //Serial.println("Test1 (1 sec)");
         t++;
-        Serial.print(t);
-        Serial.print(" - ");
-        Serial.println(screenState);
+        //Serial.print(t);
+        //Serial.print(" - ");
+        //Serial.println(screenState);
     }
 
 // Check for serial data
@@ -103,13 +103,13 @@ void loop() {
 
   int newPos = encoder.getPosition();
   if (pos != newPos) {
-    Serial.print(newPos);
-    Serial.println();
+    //Serial.print(newPos);
+    //Serial.println();
     if (pos < newPos) {
-      Serial.print("U");      
+       Serial.println("u");
     } 
     else {
-      Serial.print("D");
+      Serial.println("d");
     }
     pos = newPos;
   }
@@ -176,13 +176,13 @@ void loop() {
     if (pirState==1) {
        //Serial.println("Movement detected");
        Serial.print("P");
-       Serial.println(sinceMovement);
+       //Serial.println(sinceMovement);
 
        // Turn screen on if it's off
        if (screenState==0) {
         screenState=1;
         mySender.send(NECX,0xE0E040BF,0);
-        Serial.println("Turn monitor on");
+        //Serial.println("Turn monitor on");
        }
        // Reset timer
        sinceMovement = 0;
